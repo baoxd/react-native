@@ -5,9 +5,9 @@
 # 项目运行
 
 ```
-git clone https://github.com/shooterRao/react-native-fruitStore.git 或者直接下载
+git clone https://github.com/baoxd/react-native.git 或者直接下载
 
-cd react-native-fruitStore
+cd react-native/FruitStore
 
 yarn
 
