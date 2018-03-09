@@ -24,6 +24,10 @@ const ImageSources = [
 
 export default class HomeScreen extends Component {
 
+    static navigationOptions = {
+        title: '迷你水果商城',
+    };
+
     constructor() {
         super();
         let dataSource = new ViewPager.DataSource({

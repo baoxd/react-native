@@ -5,6 +5,7 @@ import {
     Text,
     Image,
     StyleSheet,
+    TouchableOpacity,
 } from 'react-native';
 import { width } from '../../common/screen';
 
@@ -13,13 +14,15 @@ export default class NewGoodsItem extends Component {
     static propTypes = {
         name: PropTypes.string,
         price: PropTypes.string,
-        image: PropTypes.object,
+        image: PropTypes.number,
+        onPress: PropTypes.func,
     }
 
     static defaultProps = {
         name: '',
         price: 0,
-        image:{},
+        image:-1,
+        onPress: () => {},
     }
 
     constructor(props) {
@@ -27,13 +30,15 @@ export default class NewGoodsItem extends Component {
     }
 
     render() {
-        const { name, price, image } = this.props;
+        const { name, price, image, onPress } = this.props;
         return (
-            <View style={styles.item}>
-                <Image source={image} style={styles.image}/>
-                <Text>{name}</Text>
-                <Text>￥ {price}/500g</Text>
-            </View>
+            <TouchableOpacity onPress={() => onPress && onPress()}>
+                <View style={styles.item}>
+                    <Image source={image} style={styles.image}/>
+                    <Text>{name}</Text>
+                    <Text>￥ {price}/500g</Text>
+                </View>
+            </TouchableOpacity>
         );
     }
 

@@ -27,6 +27,9 @@ const NewGoodsView = (props) => {
                             price={value.price}
                             image={value.image}
                             key={`newgooditem_${index}`}
+                            onPress={ () => {
+                                alert(111);
+                            }}
                         />
                     );
                 })
