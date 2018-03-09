@@ -333,14 +333,13 @@ var ViewPager = createReactClass({
 
 var styles = StyleSheet.create({
   indicators: {
-    // flex: 1,
-    height: 100,
+    flex: 1,
     alignItems: 'center',
     position: 'absolute',
     bottom: 10,
     left: 0,
     right: 0,
-    backgroundColor: 'red',
+    justifyContent: 'center',
   },
 });
 

@@ -9,6 +9,8 @@ import {
     ScrollView
 } from 'react-native';
 import ViewPager from '../../common/viewpager/ViewPager';
+import ThemeLine from './ThemeLine';
+import NewGoodsView from './NewGoodsView';
 
 import theme from '../../common/color';
 import { width } from '../../common/screen';
@@ -50,6 +52,8 @@ export default class HomeScreen extends Component {
                         autoPlay={true}
                     />
                 </View>
+                <ThemeLine name={'最新作品'}></ThemeLine>
+                <NewGoodsView />
             </ScrollView>
         );
     }

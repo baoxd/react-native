@@ -25,11 +25,9 @@ var styles = StyleSheet.create({
   },
 
   tabs: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'green',
   },
 
   dot: {
