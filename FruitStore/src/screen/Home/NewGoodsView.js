@@ -11,11 +11,11 @@ import { width } from '../../common/screen';
 import newGoods from '../../mobx/newGoods';
 
 const NewGoodsView = (props) => {
-    let { itemDatas } = props;
+    let { itemDatas, navigation } = props;
 
-    if (!itemDatas) {
-        itemDatas = newGoods.data;
-    }
+    // if (!itemDatas) {
+    //     itemDatas = newGoods.data;
+    // }
 
     return (
         <View style={styles.container}>
@@ -28,7 +28,7 @@ const NewGoodsView = (props) => {
                             image={value.image}
                             key={`newgooditem_${index}`}
                             onPress={ () => {
-                                alert(111);
+                                navigation.navigate("Tab", {value});
                             }}
                         />
                     );

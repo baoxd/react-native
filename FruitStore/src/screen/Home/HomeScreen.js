@@ -9,9 +9,10 @@ import {
     ScrollView
 } from 'react-native';
 import ViewPager from '../../common/viewpager/ViewPager';
+import{ inject, observer } from 'mobx-react/native';
+
 import ThemeLine from './ThemeLine';
 import NewGoodsView from './NewGoodsView';
-
 import theme from '../../common/color';
 import { width } from '../../common/screen';
 
@@ -22,10 +23,21 @@ const ImageSources = [
     require('../../img/i3.png')
 ];
 
+@inject("rootStore")
+@observer
 export default class HomeScreen extends Component {
 
     static navigationOptions = {
         title: '迷你水果商城',
+        headerTitleStyle: {
+            alignSelf: 'center',
+            fontSize: 15,
+            color: theme.fontColor,
+        },
+        headerStyle: {
+            height: 38,
+            backgroundColor: theme.color,
+        }
     };
 
     constructor() {
@@ -45,6 +57,7 @@ export default class HomeScreen extends Component {
     }
 
     render() {
+        const itemDatas = this.props.rootStore.NewGoodsStore.allDatas.data;
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.style}>
@@ -57,7 +70,7 @@ export default class HomeScreen extends Component {
                     />
                 </View>
                 <ThemeLine name={'最新作品'}></ThemeLine>
-                <NewGoodsView />
+                <NewGoodsView itemDatas={itemDatas} navigation={this.props.navigation} />
             </ScrollView>
         );
     }

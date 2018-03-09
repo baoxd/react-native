@@ -6,18 +6,25 @@ import {
     View
 } from 'react-native';
 
-import HomeScreen from './screen/Home/HomeScreen';
 import {
     StackNavigator,
     TabNavigator,
     TabBarBottom,
 } from 'react-navigation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';  
+import HomeScreen from './screen/Home/HomeScreen';
 import TabBarItem from './common/tabBarItem';
 import theme from './common/color';
 
+import { Provider } from 'mobx-react';
+import store from './mobx/store';
+
 const Navigation = () => {
-    return <Navigator />
+    return (
+        <Provider rootStore={store}>
+            <Navigator />
+        </Provider>
+    );
 }
 
 const tabOptions = {
