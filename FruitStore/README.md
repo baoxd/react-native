@@ -15,3 +15,9 @@ android: react-native run-android
 ios: react-native run-ios
 ```
 
+# 效果演示
+
+## 总体效果
+
+![begin](https://github.com/baoxd/react-native/tree/master/FruitStore/blob/master/screenshots/begin.gif)
+
