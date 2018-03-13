@@ -13,6 +13,7 @@ import {
 } from 'react-navigation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';  
 import HomeScreen from './screen/Home/HomeScreen';
+import ItemDetail from './screen/ItemDetail/ItemDetail';
 import TabBarItem from './common/tabBarItem';
 import theme from './common/color';
 
@@ -44,6 +45,54 @@ const tabOptions = {
             }
         )
     },
+    Category: {
+        screen: HomeScreen,
+        navigationOptions: ({navigation}) => (
+            {
+                tabBarLabel: '分类',
+                tabBarIcon: ({focused, tintColor}) => (
+                    <TabBarItem
+                        tintColor={tintColor}
+                        focused={focused}
+                        selectedImage={require('./img/categorySelect.png')}
+                        normalImage={require('./img/category.png')}
+                    />
+                ),
+            }
+        )
+    },
+    Cart: {
+        screen: HomeScreen,
+        navigationOptions: ({navigation}) => (
+            {
+                tabBarLabel: '购物车',
+                tabBarIcon: ({focused, tintColor}) => (
+                    <TabBarItem
+                        tintColor={tintColor}
+                        focused={focused}
+                        selectedImage={require('./img/cartSelect.png')}
+                        normalImage={require('./img/cart.png')}
+                    />
+                ),
+            }
+        ),
+    },
+    Mine: {
+        screen: HomeScreen,
+        navigationOptions: ({navigation}) => (
+            {
+                tabBarLabel: '我的',
+                tabBarIcon: ({focused, tintColor}) => (
+                    <TabBarItem
+                        tintColor={tintColor}
+                        focused={focused}
+                        selectedImage = {require('./img/mineSelect.png')}
+                        normalImage = {require('./img/mine.png')}
+                    />
+                ),
+            }
+        ),
+    }
 };
 
 const screenOptions = {
@@ -66,6 +115,7 @@ const Tab = TabNavigator(tabOptions, screenOptions);
 
 const Navigator = StackNavigator({
     Tab: {screen: Tab},
+    ItemDetail: {screen: ItemDetail},
 }, {
     navigationOptions: {
         // 开启动画

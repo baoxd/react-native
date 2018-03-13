@@ -22,4 +22,6 @@ class NewGoodsStore {
     }
 }
 
+// 
+
 export default new RootStore();

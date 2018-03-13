@@ -28,7 +28,7 @@ const NewGoodsView = (props) => {
                             image={value.image}
                             key={`newgooditem_${index}`}
                             onPress={ () => {
-                                navigation.navigate("Tab", {value});
+                                navigation.navigate("ItemDetail", {value});
                             }}
                         />
                     );
