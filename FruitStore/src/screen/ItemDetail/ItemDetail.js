@@ -43,14 +43,53 @@ export default class ItemDetail extends Component {
     }
 
     @computed get cartCount() {
-        // return this.props.rootStore.CartStore.allDatas.data.length;
-        return 0;
+        return this.props.rootStore.CartStore.allDatas.data.length;
+    }
+
+    addNum() {
+        this.setState({
+            num: this.state.num + 1,
+        });
+    }
+
+    reduceNum() {
+        if (this.state.num <= 0) {
+            return;
+        }
+        this.setState({
+            num: this.state.num - 1,
+        });
+    }
+
+    addCart(value) {
+        const { num } = this.state;
+        if (num === 0) {
+            this._toast.show('添加数量不能为0哦~');
+            return ;
+        }
+        // 加入购物车页面的列表
+        this.state.bounceValue.setValue(1.5);
+        Animated.spring(this.state.bounceValue, {
+            toValue: 1,
+            firction: 1,
+        }).start();
+        this.updateCart(value);
+        this._toast.show('添加成功^_^请前往购物车页面查看');
+    }
+
+    updateCart(value) {
+        this.props.rootStore.CartStore.add(value, this.state.num);
+    }
+
+    goCartPage() {
+        this.props.navigation.navigate('Tab');
     }
     
 
     render() {
         const {name, price, image} = this.props.navigation.state.params.value;
         let count = this.cartCount;
+
         return (
             <ScrollView
                 style={styles.container}
@@ -72,10 +111,10 @@ export default class ItemDetail extends Component {
 
                     <View style={styles.chooseLine}>
                         <Text style={styles.number}>数量 {this.state.num}</Text>
-                        <TouchableOpacity style={styles.buttonWrap}>
+                        <TouchableOpacity style={styles.buttonWrap} onPress={this.addNum.bind(this)}>
                             <Text style={styles.buttonText}>+</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonWrap}>
+                        <TouchableOpacity style={styles.buttonWrap} onPress={this.reduceNum.bind(this)}>
                             <Text style={styles.buttonText}>-</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.addCart} onPress={()=>this.addCart(this.props.navigation.state.params.value)}>
@@ -90,16 +129,31 @@ export default class ItemDetail extends Component {
                     </View>
 
                     <Animated.View style={[styles.cart2, {transform: [{scale: this.state.bounceValue}]}]}>
-                        <TouchableOpacity onPress={() => {}}>
+                        <TouchableOpacity onPress={() => this.goCartPage()}>
                             <Image source={require('../../img/cart2.png')}
                                 style={{width: 45, height: 45}} />
                         </TouchableOpacity>
                     </Animated.View>
+
+                    {
+                        count === 0 ? null :
+                        <View style={styles.circle}>
+                            <Text style={{fontSize: 16, color: theme.fontColor}}>{count}</Text>
+                        </View>
+                    }
                 </View>
 
                 <View style={styles.bottomWrapper}>
                     <MessageView />
                 </View>
+
+                <Toast
+                    ref={(ref) => this._toast = ref}
+                    positionValue={200}
+                    fadeInDuration={650}
+                    fadeOutDuration={600}
+                    opacity={.8}
+                />
             </ScrollView>
         );
     }
@@ -172,5 +226,16 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 20,
         backgroundColor: '#fff',
+    },
+    circle: {
+        width: 25,
+        height: 25,
+        borderRadius: 12.5,
+        backgroundColor: theme.color,
+        position: 'absolute',
+        top: 18,
+        right: 60,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });
