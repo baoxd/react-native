@@ -45,6 +45,7 @@ export default class CartScreen extends Component {
 
     render() {
         const { CartStore } = this.props.rootStore;
+        const dataSource = this.dataSource;
 
         return (
             <View style={styles.container}>
@@ -52,7 +53,7 @@ export default class CartScreen extends Component {
                     this.dataSource.length ?
                     <View style={{flex: 1,}}>
                         <View style={{height: height - 38 - 50 - 65}}>
-                            
+                            <CartList dataSource={dataSource} CartStore={CartStore}/>
                         </View>
                         <CartCheckOut CartStore={CartStore} />
                     </View>

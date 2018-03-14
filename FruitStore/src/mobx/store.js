@@ -103,10 +103,14 @@ class CartStore {
         }
         const { data } = this.allDatas;
         this.allDatas.isAllSelected = isSelectAll;
-
-        data.forEach((v, i) => {
+        this.allDatas.data = this.allDatas.data.map((v) => {
             v.isSelected = isSelectAll;
-        })
+            return v;
+        });
+
+        // this.allDatas.data.forEach((v, i) => {
+        //     v.isSelected = isSelectAll;
+        // })
     }
 
     /**
