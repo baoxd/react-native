@@ -82,7 +82,13 @@ export default class ItemDetail extends Component {
     }
 
     goCartPage() {
-        this.props.navigation.navigate('Tab');
+        this.props.navigation.navigate('Cart', {
+            headerStyle: {
+                alignSelf: 'auto',
+                fontSize: 15,
+                color: theme.fontColor,
+            }
+        });
     }
     
 
@@ -195,8 +201,8 @@ const styles = StyleSheet.create({
         marginLeft: 35,
     },
     buttonWrap: {
-        width: 28,
-        height: 28,
+        width: 24,
+        height: 24,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
