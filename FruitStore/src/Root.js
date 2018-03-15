@@ -16,6 +16,7 @@ import HomeScreen from './screen/Home/HomeScreen';
 import CategoryScreen from './screen/Category/CategoryScreen';
 import CartScreen from './screen/Cart/CartScreen';
 import ItemDetail from './screen/ItemDetail/ItemDetail';
+import MineScreen from './screen/Mine/MineScreen';
 import TabBarItem from './common/tabBarItem';
 import theme from './common/color';
 
@@ -80,7 +81,7 @@ const tabOptions = {
         ),
     },
     Mine: {
-        screen: HomeScreen,
+        screen: MineScreen,
         navigationOptions: ({navigation}) => (
             {
                 tabBarLabel: '我的',
