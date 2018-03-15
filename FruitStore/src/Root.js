@@ -17,6 +17,7 @@ import CategoryScreen from './screen/Category/CategoryScreen';
 import CartScreen from './screen/Cart/CartScreen';
 import ItemDetail from './screen/ItemDetail/ItemDetail';
 import MineScreen from './screen/Mine/MineScreen';
+import OrderScreen from './screen/Order/OrderScreen';
 import TabBarItem from './common/tabBarItem';
 import theme from './common/color';
 
@@ -120,7 +121,7 @@ const Navigator = StackNavigator({
     Tab: {screen: Tab},
     ItemDetail: {screen: ItemDetail},
     Cart: {screen: CartScreen},
-
+    Order: {screen: OrderScreen},
 }, {
     navigationOptions: {
         // 开启动画

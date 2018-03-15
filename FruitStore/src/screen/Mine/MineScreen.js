@@ -34,6 +34,7 @@ export default class MineScreen extends Component {
     _onPress(type) {
         const { navigation } = this.props;
         if (type && type === 'order') {
+            navigation.navigate('Order')
         }
     }
 

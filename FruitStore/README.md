@@ -21,3 +21,7 @@ ios: react-native run-ios
 
 ![begin](https://github.com/baoxd/react-native/blob/master/FruitStore/screenshots/1.gif)
 
+
+## 下单
+
+![begin](https://github.com/baoxd/react-native/blob/master/FruitStore/screenshots/2.gif)

@@ -49,7 +49,7 @@ export default class CartCheckOut extends Component {
     // 清空购物车
     clearCart() {
         const CartStore = this.props.CartStore;
-        const { totalMoney, data } = CartStore.allDatas;
+        const { data } = CartStore.allDatas;
         const OrderStore = CartStore.rootStore.OrderStore;
         this.setState({
             visiable: true,
@@ -62,7 +62,7 @@ export default class CartCheckOut extends Component {
             setTimeout(() => {
                 let order = {
                     date: new Date(),
-                    totalMoney: totalMoney,
+                    totalMoney: CartStore.totalMoney,
                 };
                 order.data = data.filter((v) => {
                      return v.isSelected === true;
@@ -72,8 +72,8 @@ export default class CartCheckOut extends Component {
                 // 清空已支付的购物车
                 CartStore.deleteHasPaid();
                 this.setState({visiable: false});
-            }, 1500);
-        }, 2000);
+            }, 500);
+        }, 1000);
     }
 
     render() {
