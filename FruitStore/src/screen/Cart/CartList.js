@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import { observer } from 'mobx-react';
+import Toast, {DURATION} from 'react-native-easy-toast';
 
 import theme from '../../common/color';
 import { width, height } from '../../common/screen';
@@ -34,22 +35,30 @@ export default class CartList extends Component {
 
     // 切换选择
     toggleSelect(item) {
-
+        const { CartStore } = this.props;
+        CartStore.toggleSelect(item);
     }
 
     // 购物车减一
     reduceCount(item) {
-
+        const { CartStore } = this.props;
+        if (item.count === 0) {
+            this._toast.show('不能再减了哦~');
+            return;
+        }
+        CartStore.add(item, -1);
     }
 
     // 购物车加一
     addCount(item) {
-
+        const { CartStore } = this.props;
+        CartStore.add(item, 1);
     }
 
     // 删除购物车
     deleteCart(item) {
-
+        const { CartStore } = this.props;
+        CartStore.deleteCart(item);
     }
 
     // 渲染每个条目
@@ -117,6 +126,13 @@ export default class CartList extends Component {
                     data={dataSource.slice()}
                     renderItem={this._renderItem}
                     keyExtractor={this._keyExtractor}
+                />
+                <Toast
+                    ref={(ref) => this._toast = ref}
+                    positionValue={200}
+                    fadeInDuration={650}
+                    fadeOutDuration={650}
+                    opacity={.8}
                 />
             </View>
         );

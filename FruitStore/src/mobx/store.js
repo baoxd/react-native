@@ -68,9 +68,6 @@ class CartStore {
      */
     @action
     add(item, num) {
-        if (num < 0) {
-            return;
-        }
         let { data } = this.allDatas;
         let index = -1;
 
@@ -88,7 +85,20 @@ class CartStore {
                 ...{count: num},
             });
         }
+
+        // 生成新的对象 否则页面不会刷新
+        this.allDatas.data = [...data];
         this.allDatas.isAllSelected = data.every((v) => v.isSelected);
+    }
+
+    /**
+     * 删除条目
+     * @param 条目
+     */
+    deleteCart(item) {
+        this.allDatas.data = this.allDatas.data.filter((v) => {
+            return item.name !== v.name ;
+        });
     }
 
     /**
@@ -107,7 +117,7 @@ class CartStore {
             v.isSelected = isSelectAll;
             return v;
         });
-
+        // 下面的代码不会引起更新， 看来对于多级的对象， 还是要返回一个新的对象才行
         // this.allDatas.data.forEach((v, i) => {
         //     v.isSelected = isSelectAll;
         // })
@@ -126,6 +136,26 @@ class CartStore {
         if (this.allDatas.data.length === 0) {
             this.allDatas.isAllSelected = false;
         }
+    }
+
+    /**
+     * 切换购物车条目是否选中
+     * @param  单条数据
+     */
+    toggleSelect(item) {
+        const { data } = this.allDatas;
+        let isAllSelected = true;
+        // 返回一个新对象
+        this.allDatas.data = this.allDatas.data.map((v, i) => {
+            if (v.name === item.name) {
+                v.isSelected = !v.isSelected;
+            }
+            if (!v.isSelected) {
+                isAllSelected = false;
+            }
+            return v;
+        });
+        this.allDatas.isAllSelected = isAllSelected;
     }
 
     @computed get totalMoney() {
