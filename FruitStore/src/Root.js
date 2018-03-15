@@ -13,6 +13,7 @@ import {
 } from 'react-navigation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';  
 import HomeScreen from './screen/Home/HomeScreen';
+import CategoryScreen from './screen/Category/CategoryScreen';
 import CartScreen from './screen/Cart/CartScreen';
 import ItemDetail from './screen/ItemDetail/ItemDetail';
 import TabBarItem from './common/tabBarItem';
@@ -47,7 +48,7 @@ const tabOptions = {
         )
     },
     Category: {
-        screen: HomeScreen,
+        screen: CategoryScreen,
         navigationOptions: ({navigation}) => (
             {
                 tabBarLabel: '分类',
@@ -118,6 +119,7 @@ const Navigator = StackNavigator({
     Tab: {screen: Tab},
     ItemDetail: {screen: ItemDetail},
     Cart: {screen: CartScreen},
+
 }, {
     navigationOptions: {
         // 开启动画

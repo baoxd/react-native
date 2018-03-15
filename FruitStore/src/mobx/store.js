@@ -1,5 +1,6 @@
 import { observable, computed, action } from 'mobx';
 import newGoods from './newGoods';
+import categoryGoods from './categoryGoods';
 
 /**
  * 根store
@@ -9,14 +10,25 @@ class RootStore {
         this.NewGoodsStore = new NewGoodsStore(newGoods, this);
         this.CartStore = new CartStore(this);
         this.OrderStore = new OrderStore(this);
+        this.CategoryGoodsStore = new CategoryGoodsStore(categoryGoods, this);
     }
 }
 
 // 首页新品
 class NewGoodsStore {
-
     @observable
     allDatas = {}
+
+    constructor(data, rootStore) {
+        this.allDatas = data;
+        this.rootStore = rootStore;
+    }
+}
+
+// 分类
+class CategoryGoodsStore {
+    @observable
+    allDatas = [];
 
     constructor(data, rootStore) {
         this.allDatas = data;

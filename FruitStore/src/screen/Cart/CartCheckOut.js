@@ -52,7 +52,7 @@ export default class CartCheckOut extends Component {
         const { totalMoney, data } = CartStore.allDatas;
         const OrderStore = CartStore.rootStore.OrderStore;
         this.setState({
-            visiable: !this.state.visiable,
+            visiable: true,
         });
 
         setTimeout(() => {
@@ -71,6 +71,7 @@ export default class CartCheckOut extends Component {
                 OrderStore.addOrder(order);
                 // 清空已支付的购物车
                 CartStore.deleteHasPaid();
+                this.setState({visiable: false});
             }, 1500);
         }, 2000);
     }
