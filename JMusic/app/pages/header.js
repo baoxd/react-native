@@ -12,7 +12,10 @@ import {
 
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import NavBarView from '../base/NavBarView';
+// 歌手
 import Recommend from './recommend';
+// 推荐
+import Singer from './singer';
 
 export default class Header extends Component {
 
@@ -64,7 +67,9 @@ export default class Header extends Component {
                         tabLabel="推荐"
                         navigate={this.props.navigation.navagate}
                     />
-                    <View tabLabel="歌手"></View>
+                    <Singer
+                        tabLabel="歌手"
+                    />
                     <View tabLabel="排行"></View>
                     <View tabLabel="搜索"></View>
                 </ScrollableTabView>

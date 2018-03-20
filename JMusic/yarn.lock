@@ -4232,6 +4232,12 @@ react-native-drawer-layout@1.3.2:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
+react-native-largelist@^1.2.7:
+  version "1.2.7"
+  resolved "http://registry.npm.taobao.org/react-native-largelist/download/react-native-largelist-1.2.7.tgz#10e259fe8f49581750b5136e2361f0e2b0fb481a"
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-safe-area-view@^0.7.0:
   version "0.7.0"
   resolved "http://registry.npm.taobao.org/react-native-safe-area-view/download/react-native-safe-area-view-0.7.0.tgz#38f5ab9368d6ef9e5d18ab64212938af3ec39421"
