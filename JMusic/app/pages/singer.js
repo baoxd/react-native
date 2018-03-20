@@ -130,7 +130,45 @@ export default class Singer extends Component {
     onSectionChange(section: number) {
         this.state.SingerList[this.selectedIndex].selected = false;
         this.state.SingerList[section].selected = true;
+        // 使用局部刷新
+        this.indexes.reloadIndexPaths([
+            { section: 0, row: this.selectedIndex},
+            { section: 0, row: section},
+        ]);
+        this.selectedIndex = section;
 
+        let bFind = false;
+        this.indexes.visibleIndexPaths().forEach(indexPath => {
+            if (indexPath.row === section) {
+                bFind = true;
+            }
+        });
+        if (!bFind) {
+            this.indexes.scrollToIndexPath({section: 0, row: section});
+        }
+    }
+
+    renderIndexes(section: number, row: number) {
+        const { SingerList } = this.state;
+        let selected = SingerList[row].selected;
+
+        return (
+            <TouchableOpacity
+                style={{
+                    flex: 1,
+                    height: 30,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}
+                onPress={() => {
+                    this.listRef.scrollToIndexPath({ section: row, row: 0});
+                }}
+            >
+                <Text style={{fontSize: 12, color: selected ? "#ffcd32" : "hsla(0, 0%, 100%, .5)"}}>
+                    {SingerList[row].title.substr(0, 1)}
+                </Text>
+            </TouchableOpacity>
+        );
     }
 
     render() {
@@ -147,6 +185,17 @@ export default class Singer extends Component {
                     heightForCell={() => 80}
                     renderCell={this.renderItem.bind(this)}
                     onSectionDidHangOnTop={this.onSectionChange.bind(this)}
+                    renderItemSeparator={() => null}
+                />}
+
+                {SingerList && SingerList.length > 0 && <LargeList
+                    style={{position: 'absolute', width: 44, right: 0, backgroundColor: 'transparent'}}
+                    ref={ref => this.indexes = ref}
+                    numberOfRowsInSection={() => SingerList.length}
+                    heightForCell={() => 18}
+                    renderCell={this.renderIndexes.bind(this)}
+                    showsVerticalScrollIndicator={false}
+                    bounces={false}
                     renderItemSeparator={() => null}
                 />}
             </View>
