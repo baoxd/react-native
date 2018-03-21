@@ -69,6 +69,7 @@ export default class Header extends Component {
                     />
                     <Singer
                         tabLabel="歌手"
+                        navigate={this.props.navigation.navigate}
                     />
                     <View tabLabel="排行"></View>
                     <View tabLabel="搜索"></View>

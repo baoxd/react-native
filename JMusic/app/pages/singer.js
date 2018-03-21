@@ -116,6 +116,16 @@ export default class Singer extends Component {
         return (
             <TouchableOpacity
                 style={{flex: 1}}
+                onPress={() => {
+                    this.navigate('SingerDetail', {
+
+                    });
+                    jumpPager(this.props.navigate, 'SingerDetail', {
+                        title: singer.name,
+                        id: singer.id,
+                        avatar: singer.avatar,
+                    });
+                }}
             >
                 <View style={{flex:1, flexDirection: 'row', paddingLeft: 20, alignItems: 'center'}}>
                     <Image source={{uri: singer.avatar}} style={{width: 50, height: 50, borderRadius: 25, marginRight: 20}} />
