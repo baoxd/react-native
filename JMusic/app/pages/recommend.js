@@ -10,7 +10,7 @@ import {
 
 import HttpMusic from '../api/api';
 import Swiper from 'react-native-swiper';
-import { jumpPager, width } from '../base/Utils';
+import { jumpPage, width } from '../base/Utils';
 
 const HTPPS_REG = /(?=\:)/g;
 

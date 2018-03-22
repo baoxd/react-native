@@ -10,7 +10,7 @@ import {
 import HttpMusic from '../api/api';
 import { LargeList } from 'react-native-largelist';
 import singer from '../common/singer.js';
-import { width, height, jumpPager } from '../base/Utils';
+import { width, height, jumpPage } from '../base/Utils';
 
 const HOT_SINGER_LEN = 10;
 const HOT_NAME = '热门';
@@ -117,10 +117,7 @@ export default class Singer extends Component {
             <TouchableOpacity
                 style={{flex: 1}}
                 onPress={() => {
-                    this.navigate('SingerDetail', {
-
-                    });
-                    jumpPager(this.props.navigate, 'SingerDetail', {
+                    jumpPage(this.props.navigate, 'SingerDetail', {
                         title: singer.name,
                         id: singer.id,
                         avatar: singer.avatar,

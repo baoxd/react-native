@@ -45,11 +45,12 @@ export default class SingerDetail extends Component {
     }
 
     async getSongData() {
-
+        const data = await this.HttpMusic.getSongList(this.mid);
+        console.log(data);
     }
 
     async requestData() {
-        const data = this.HttpMusic.getDetailSinger(this.mid);
+        const data = await this.HttpMusic.getDetailSinger(this.mid);
         console.log(data);
     }
 
