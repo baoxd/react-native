@@ -13,19 +13,19 @@ class Song {
         this.duration = duration;
         this.image = image;
         this.filename = `C400${this.mid}.m4a`;
+        this.HttpSong = new HttpSong();
         if (urlMap[this.id]) {
             this.url = urlMap[this.id];
         } else {
             this._getUrl();
         }
-        this.HttpSong = new HttpSong();
     }
 
-    _getUrl() {
+    async _getUrl() {
         if (this.url) {
             return;
         }
-        var data = this.HttpSong.getVKey(this.mid, this.filename);
+        var data = await this.HttpSong.getVKey(this.mid, this.filename);
         if (this.code === 0) {
             const vkey = data.data.items[0].vkey;
             this.url = `http://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${vkey}&guid=${getUid()}&uin=0&fromtag=66`

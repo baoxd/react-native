@@ -8,7 +8,7 @@ const URL = {
 export default class HttpSong {
     async getVKey(songmid, filename) {
         url = `${URL.VKeyUrl}&songmid=${songmid}&filename=${filename}&guid=${getUid()}`;
-        const data = fetchData(url);
+        const data = await fetchData(url);
         return data;
     }
 }
