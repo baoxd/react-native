@@ -39,8 +39,16 @@ export default class HttpMusic {
 
     async getSongList(disstid) {
         const url = `${URL.songListUrl}&disstid=${disstid}`;
-        const data = await fetchData(url);
-        return data;
+        const text = await fetchData(url, {
+            headers: {
+                referer: 'https://c.y.qq.com/',
+                host: 'c.y.qq.com'
+            },
+            dataType: 'text',
+        });
+        let reg = /(jsonCallback\()/;
+        let data1 = text.replace(reg, '').replace(/(\))+$/, ' ')
+        return JSON.parse(data1);
     }
 
 

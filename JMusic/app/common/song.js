@@ -4,7 +4,7 @@ import HttpSong from '../api/song';
 let urlMap = {};
 
 class Song {
-    constructor(id, mid, singer, name, album, duration, image) {
+    constructor({id, mid, singer, name, album, duration, image}) {
         this.id = id;
         this.mid = mid;
         this.singer = singer;

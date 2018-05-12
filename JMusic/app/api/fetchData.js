@@ -4,12 +4,13 @@ const tileObject = (obj) => {
     }).join('&') : '';
 }
 
-const fetchData = (url, {data = {}, method = 'GET', headers = {}} = {}) => {
-    const params = {
-        method: method.toUpperCase(),
+const fetchData = (url, {data = {}, method = 'GET', headers = {}, dataType = 'json'} = {}) => {
+    let params = {
         headers,
     }
-    switch(params.method) {
+    let Method = method.toUpperCase();
+
+    switch(Method) {
         case 'GET':
             if (url.indexOf('?') < 0 ) {
                 url += '?' + (data ? tileObject(data) : '');
@@ -22,10 +23,15 @@ const fetchData = (url, {data = {}, method = 'GET', headers = {}} = {}) => {
             break;
     }
 
-    return fetch(url, params).then((res) => {
-        return res.json();
+    return fetch(url, {
+        headers: params.headers,
+    }).then((res) => {
+        if (dataType === 'json') {
+            return res.json();
+        } else {
+            return res.text();
+        }
     }).catch((e) => {
-        console.log('接口查询出错...');
         console.log(e);
     });
 }

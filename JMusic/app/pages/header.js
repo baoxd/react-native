@@ -65,7 +65,7 @@ export default class Header extends Component {
                 >
                     <Recommend
                         tabLabel="推荐"
-                        navigate={this.props.navigation.navagate}
+                        navigate={this.props.navigation.navigate}
                     />
                     <Singer
                         tabLabel="歌手"

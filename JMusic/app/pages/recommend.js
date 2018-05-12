@@ -117,7 +117,12 @@ export default class Recommend extends Component {
                                         <TouchableOpacity
                                             key={`${index}_scrolllist`}
                                             onPress={() => {
-                                                alert(1111);
+                                                jumpPage(this.props.navigate, 'SingerDetail', {
+                                                    title: item.dissname,
+                                                    avatar: item.imgurl.replace(/(?=\:)/g, 's'),
+                                                    id: item.dissid,
+                                                    page: 'Recommend'
+                                                });
                                             }}
                                         >
                                             <View style={styles.scrollList}>
