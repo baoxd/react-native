@@ -161,7 +161,39 @@ export default class SingerDetail extends Component {
                         }],
                     }}
                 >
-
+                    {
+                        this.state.singerData.length > 0 &&
+                        <AnimatedFlatList
+                            data={this.state.singerData}
+                            keyExtractor={(item, index) => index}
+                            showsVerticalScrollIndicator={false}
+                            scrollEventThrottle={26}
+                            onScroll={Animated.event(
+                                [{ nativeEvent: { contentOffset: { y: this.state.scrollY }}}],
+                                { useNativeDriver: true }
+                            )}
+                            renderItem={({item, index}) => {
+                                return (
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            jumpPager(this.props.navigation.navigate, 'Play', {
+                                                songs: this.state.singerData,
+                                                currentIndex: index,
+                                            })
+                                        }}
+                                    >
+                                        <View
+                                            style={styles.listGroup}
+                                        >
+                                            <Text numberOfLines={1} style={styles.singer_name}>{item.name}</Text>
+                                            <Text numberOfLines={1} style={styles.singer_album}>{item.singer}-{item.album}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                )
+                            }}
+                        >
+                        </AnimatedFlatList>
+                    }
                 </Animated.View>
             </View>
         );
@@ -215,5 +247,19 @@ const styles = StyleSheet.create({
         width: width,
         height: windowHeight,
         backgroundColor: 'rgba(7, 17, 27, 0.4)',
+    },
+    listGroup: {
+        height: 64,
+        flex: 1,
+        justifyContent: 'center',
+    },
+    singer_name: {
+        fontSize: 14,
+        color: '#fff',
+    },
+    singer_album: {
+        fontSize: 14,
+        marginTop: 5,
+        color: 'hsla(0, 0%, 100%, .3)'
     }
 });
