@@ -6,6 +6,7 @@ const URL = {
     singerUrl: 'https://c.y.qq.com/v8/fcg-bin/v8.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&channel=singer&page=list&key=all_all_all&pagesize=100&pagenum=1&hostUin=0&needNewCode=0&platform=yqq',
     singerDetail: 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&hostUin=0&needNewCode=0&platform=yqq&order=listen&begin=0&num=80&songstatus=1',
     songListUrl: 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&type=1&json=1&utf8=1&onlysong=0&platform=yqq&hostUin=0&needNewCode=0',
+    rankUrl: 'https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&uin=0&needNewCode=1&platform=h5',
 
 }
 
@@ -51,5 +52,13 @@ export default class HttpMusic {
         return JSON.parse(data1);
     }
 
+    async getRank() {
+        const text = await fetchData(URL.rankUrl, {
+            dataType: 'text'
+        });
+        let reg = /(MusicJsonCallback\()/;
+        let data = text.replace(reg, '').replace(/(\))+$/, ' ')
+        return JSON.parse(data);
+    }
 
 }

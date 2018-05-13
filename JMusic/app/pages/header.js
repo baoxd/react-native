@@ -16,6 +16,9 @@ import NavBarView from '../base/NavBarView';
 import Recommend from './recommend';
 // 推荐
 import Singer from './singer';
+// 排行榜
+import Rank from './rank';
+
 
 export default class Header extends Component {
 
@@ -71,7 +74,7 @@ export default class Header extends Component {
                         tabLabel="歌手"
                         navigate={this.props.navigation.navigate}
                     />
-                    <View tabLabel="排行"></View>
+                    <Rank navigate={this.props.navigation.navigate} tabLabel="排行"></Rank>
                     <View tabLabel="搜索"></View>
                 </ScrollableTabView>
             </View>

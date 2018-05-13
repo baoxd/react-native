@@ -12,7 +12,7 @@ import {
 
 import HttpMusic from '../api/api';
 import { createSong, isValidMusic } from '../common/song';
-import { width, height, jumpPager, shuffle } from '../base/Utils';
+import { width, height, jumpPage, shuffle } from '../base/Utils';
 
 const windowHeight = width * 0.7;
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
@@ -128,9 +128,9 @@ export default class SingerDetail extends Component {
                         <TouchableOpacity
                             style={styles.playWrapper}
                             onPress={() => {
-                                // jumpPager(this.props.navigation.navigate, 'Play', {
-                                //     songs: shuffle(this.state.singerData)
-                                // })
+                                jumpPage(this.props.navigation.navigate, 'Play', {
+                                    songs: shuffle(this.state.singerData)
+                                })
                             }}
                         >
                             <Image source={require('./img/icon-play.png')} style={styles.iconPlay}/>
@@ -176,7 +176,7 @@ export default class SingerDetail extends Component {
                                 return (
                                     <TouchableOpacity
                                         onPress={() => {
-                                            jumpPager(this.props.navigation.navigate, 'Play', {
+                                            jumpPage(this.props.navigation.navigate, 'Play', {
                                                 songs: this.state.singerData,
                                                 currentIndex: index,
                                             })
