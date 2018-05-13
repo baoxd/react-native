@@ -90,34 +90,79 @@ export default class SingerDetail extends Component {
                 <View style={styles.titleWrap}>
                     <Text style={styles.title} numberOfLines={1}>{this.props.navigation.state.params.data.title}</Text>
                 </View>
-                {this.state.singerData.length > 0 && <Animated.View style={{position: 'relative', width: width, paddingTop: windowHeight,
-                    opacity: this.state.scrollY.interpolate({
-                        inputRange: [-windowHeight, 0, windowHeight / 1.2],
-                        outputRange: [1, 1, 0.4],
-                        extrapolate: 'clamp',
-                    }),
-                    transform: [{
-                        translateY: this.state.scrollY.interpolate({
-                            inputRange: [-windowHeight, 0, windowHeight],
-                            outputRange: [windowHeight / 2, 0, -50],
-                            extrapolate: 'clamp'
-                        })
-                    }, {
-                        scale: this.state.scrollY.interpolate({
-                            inputRange: [-windowHeight, 0, windowHeight],
-                            outputRange: [2, 1, 1],
-                        })
-                    }],
-                }}>
-                    <Image style={{
+                {
+                    this.state.singerData.length > 0 && 
+                    <Animated.View style={{
+                        position: 'relative',
+                        width: width, 
+                        paddingTop: windowHeight,
+                        opacity: this.state.scrollY.interpolate({
+                            inputRange: [-windowHeight, 0, windowHeight / 1.2],
+                            outputRange: [1, 1, 0.4],
+                            extrapolate: 'clamp',
+                        }),
+                        transform: [{
+                            translateY: this.state.scrollY.interpolate({
+                                inputRange: [-windowHeight, 0, windowHeight],
+                                outputRange: [windowHeight / 2, 0, -50 ],
+                                extrapolate: 'clamp'
+                            })
+                        }, {
+                            scale: this.state.scrollY.interpolate({
+                                inputRange: [-windowHeight, 0, windowHeight],
+                                outputRange: [2, 1, 1],
+                            })
+                        }],
+                    }}>
+                        <Image 
+                            style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                resizeMode: 'cover',
+                                width: width,
+                                height: windowHeight,
+                            }}
+                            source={{uri: this.avatar}}
+                        />
+                        <TouchableOpacity
+                            style={styles.playWrapper}
+                            onPress={() => {
+                                // jumpPager(this.props.navigation.navigate, 'Play', {
+                                //     songs: shuffle(this.state.singerData)
+                                // })
+                            }}
+                        >
+                            <Image source={require('./img/icon-play.png')} style={styles.iconPlay}/>
+                        </TouchableOpacity>
+                        <View style={styles.filter} />
+                    </Animated.View>
+                }
+                <Animated.View
+                    style={{
+                        flex: 1,
                         position: 'absolute',
+                        bottom: 0,
                         left: 0,
-                        top: 0,
-                        resizeMode: 'cover',
-                        width: width,
-                        height: windowHeight
-                    }} source={{uri: this.avatar}}/>
-                </Animated.View>}
+                        right: 0,
+                        top: windowHeight - 50,
+                        height: height,
+                        zIndex: 99,
+                        paddingTop: 20,
+                        paddingLeft: 30,
+                        paddingRight: 30,
+                        backgroundColor: '#222',
+                        transform: [{
+                            translateY: this.state.scrollY.interpolate({
+                                inputRange: [-windowHeight, 0, windowHeight],
+                                outputRange: [windowHeight - 50, 0, -windowHeight + 110],
+                                extrapolate: 'clamp',
+                            })
+                        }],
+                    }}
+                >
+
+                </Animated.View>
             </View>
         );
     }
@@ -149,4 +194,26 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#fff',
     },
+    playWrapper: {
+        position: 'absolute',
+        bottom: 70,
+        left: 0,
+        width: width,
+        height: 32,
+        zIndex: 10,
+        alignItems: 'center',
+    },
+    iconPlay: {
+        height: 32,
+        width: 135,
+    },
+    filter: {
+        flex: 1,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width: width,
+        height: windowHeight,
+        backgroundColor: 'rgba(7, 17, 27, 0.4)',
+    }
 });
