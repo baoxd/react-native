@@ -7,6 +7,8 @@ const URL = {
     singerDetail: 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&hostUin=0&needNewCode=0&platform=yqq&order=listen&begin=0&num=80&songstatus=1',
     songListUrl: 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&type=1&json=1&utf8=1&onlysong=0&platform=yqq&hostUin=0&needNewCode=0',
     rankUrl: 'https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&uin=0&needNewCode=1&platform=h5',
+    hotSearchUrl: 'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&uin=0&needNewCode=1&platform=h5',
+    searchUrl: 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&zhidaqu=1&t=0&flag=1&ie=utf-8&sem=1&aggr=0&catZhida=1&remoteplace=txt.mqq.all&uin=0&needNewCode=1&platform=h5',
 
 }
 
@@ -57,6 +59,21 @@ export default class HttpMusic {
             dataType: 'text'
         });
         let reg = /(MusicJsonCallback\()/;
+        let data = text.replace(reg, '').replace(/(\))+$/, ' ')
+        return JSON.parse(data);
+    }
+
+    async getHot() {
+        const data = await fetchData(URL.hotSearchUrl);
+        return data;
+    }
+
+    async getSearch(query, page, zhida, perpage) {
+        let url = `${URL.searchUrl}&w=${encodeURIComponent(query)}&p=${page}&perpage=${perpage}&n=${perpage}`;
+        const text = await fetchData(url, {
+            dataType: 'text',
+        });
+        let reg = /(callback\()/;
         let data = text.replace(reg, '').replace(/(\))+$/, ' ')
         return JSON.parse(data);
     }
