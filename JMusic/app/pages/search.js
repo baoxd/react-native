@@ -98,6 +98,77 @@ export default class Search extends Component {
         return ret;
     }
 
+    _onEndReached() {
+        this.searchMore();
+    }
+
+    searchMore() {
+        if (!this.state.hasMore) {
+            return;
+        }
+        this.setState({page: this.state.page++}, () => {
+            this.HttpMusic.getSearch(
+                this.state.txtValue,
+                this.state.page,
+                this.state.showSinger,
+                perpage
+            ).then((data) => {
+                if (data && data.code === 0) {
+                    let result = this.state.result.concat(this._genResult(data.data));
+                    this.setState({
+                        result: result,
+                    });
+                    this._checkMore(data.data);
+                }
+            });
+        });
+    }
+
+    _renderFooter() {
+        if (this.state.hasMore) {
+            return <ActivityIndicator />
+        } else {
+            return <Text />
+        }
+    }
+
+    getDisplayName(item, index) {
+        if (item.type === TYPE_SINGER) {
+            return (
+                <TouchableOpacity
+                    onPress={() => {
+                        jumpPage(this.props.navigate, 'SingerDetail', {
+                            title: item.singername,
+                            avatar: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${item.singermid}.jpg?max_age=2592000`,
+                            id: item.singermid
+                        })
+                    }}
+                >
+                    <View style={styles.imgWrapper}>
+                        <Image source={require('./img/user.png')} style={{marginRight: 10, width: 14, height: 14}}/>
+                        <Text style={{color: 'hsla(0,0%,100%,.3)', fontSize: 14}} numberOfLines={1}
+                            ellipsizeMode='tail'>{item.singername}</Text>
+                    </View>
+                </TouchableOpacity>
+            )
+        } else {
+            return (
+                <TouchableOpacity onPress={() => {
+                  jumpPage(this.props.navigate, 'PlayerScence', {
+                    songs: this.state.result,
+                    currentIndex: index
+                  })
+                }}>
+                  <View style={styles.imgWrapper}>
+                    <Image source={require('./img/music.png')} style={{marginRight: 10, width: 14, height: 14}}/>
+                    <Text style={{color: 'hsla(0,0%,100%,.3)', fontSize: 14}} numberOfLines={1}
+                          ellipsizeMode='tail'>{`${item.name}-${item.singer}`}</Text>
+                  </View>
+                </TouchableOpacity>
+            )
+        }
+    }
+
 
     render() {
         return (
@@ -138,6 +209,33 @@ export default class Search extends Component {
                             })
                         }
                     </View>
+                    {
+                        this.state.result.length > 0 &&
+                        this.state.txtValue.length > 0 &&
+                        <View style={[styles.scroll_View, { opacity: this.state.opacity }]}>
+                            <FlatList
+                                data={this.state.result}
+                                keyExtractor={(item, index) => index}
+                                showsVerticalScrollIndicator={false}
+                                onEndReached={this._onEndReached.bind(this)}
+                                onEndReachedThreshold={-0.1}
+                                ListFooterComponent={this._renderFooter.bind(this)}
+                                renderItem={({item, index}) => {
+                                    return (
+                                        <View style={{
+                                            width: width,
+                                            paddingBottom: 20,
+                                            flex: 1,
+                                        }}>
+                                            { this.getDisplayName(item, index) }
+                                        </View>
+                                    )
+                                }}
+                            >
+
+                            </FlatList>
+                        </View>
+                    }
                 </View>
             </View>
         )
@@ -210,7 +308,22 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 14,
         color: 'hsla(0, 0%, 100%, .3)',
-    }
+    },
+    scroll_View: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 200,
+        backgroundColor: '#222',
+    },
+    imgWrapper: {
+        flexDirection: 'row',
+        flex: 1,
+        width: width,
+        alignItems: 'center',
+    },
 });
 
 
