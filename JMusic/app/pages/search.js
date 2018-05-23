@@ -5,12 +5,9 @@ import {
     TextInput,
     StyleSheet,
     Image,
-    StatusBar,
-    Dimensions,
     ActivityIndicator,
     TouchableOpacity,
     FlatList,
-    ScrollView,
 } from 'react-native';
 
 import HttpMusic from '../api/api';
