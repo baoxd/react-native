@@ -5,7 +5,7 @@ import {
 
 import Header from './pages/header'
 import SingerDetail from './pages/singerDetail';
-import RankDetail from './pages/RankDetail';
+import RankDetail from './pages/rankDetail';
 
 const App = StackNavigator({
   

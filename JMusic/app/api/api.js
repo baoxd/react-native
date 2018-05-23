@@ -9,6 +9,7 @@ const URL = {
     rankUrl: 'https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&uin=0&needNewCode=1&platform=h5',
     hotSearchUrl: 'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&uin=0&needNewCode=1&platform=h5',
     searchUrl: 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&zhidaqu=1&t=0&flag=1&ie=utf-8&sem=1&aggr=0&catZhida=1&remoteplace=txt.mqq.all&uin=0&needNewCode=1&platform=h5',
+    rankDetailUrl: 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&needNewCode=1&uin=0&tpl=3&page=detail&type=top&platform=h5',
 
 }
 
@@ -76,6 +77,12 @@ export default class HttpMusic {
         let reg = /(callback\()/;
         let data = text.replace(reg, '').replace(/(\))+$/, ' ')
         return JSON.parse(data);
+    }
+
+    async getRankDetail(topid) {
+        let url = `${URL.rankDetailUrl}&topid=${topid}`;
+        const data = await fetchData(url);
+        return data;
     }
 
 }
