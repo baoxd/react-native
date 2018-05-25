@@ -10,7 +10,7 @@ const URL = {
     hotSearchUrl: 'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&uin=0&needNewCode=1&platform=h5',
     searchUrl: 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&zhidaqu=1&t=0&flag=1&ie=utf-8&sem=1&aggr=0&catZhida=1&remoteplace=txt.mqq.all&uin=0&needNewCode=1&platform=h5',
     rankDetailUrl: 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&needNewCode=1&uin=0&tpl=3&page=detail&type=top&platform=h5',
-
+    lyricUrl: 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=json&platform=yqq&hostUin=0&needNewCode=0&categoryId=10000000',
 }
 
 
@@ -85,4 +85,21 @@ export default class HttpMusic {
         return data;
     }
 
+    async getLyric(mid) {
+        let url = `${URL.lyricUrl}&songmid=${mid}&pcachetime=${+new Date()}`;
+        const text = await fetchData(url, {
+            headers: {
+                referer: 'https://c.y.qq.com/',
+                host: 'c.y.qq.com'
+            },
+            dataType: 'text',
+        });
+        let data;
+        const reg = /^\w+\(({.+})\)$/;
+        const matches = text.match(reg);
+        if (matches) {
+            data = JSON.parse(matches[1]);
+        }
+        return data;
+    }
 }

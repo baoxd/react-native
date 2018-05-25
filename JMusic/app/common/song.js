@@ -26,7 +26,7 @@ class Song {
             return;
         }
         var data = await this.HttpSong.getVKey(this.mid, this.filename);
-        if (this.code === 0) {
+        if (data.code === 0) {
             const vkey = data.data.items[0].vkey;
             this.url = `http://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${vkey}&guid=${getUid()}&uin=0&fromtag=66`
             urlMap[this.id] = this.url;
